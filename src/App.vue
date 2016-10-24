@@ -21,6 +21,10 @@ body {
   height: 600px;
 }
 
+#app {
+  height: 100%;
+}
+
 a {
   color: #34495e;
   text-decoration: none;
