@@ -28,6 +28,7 @@ body {
 a {
   color: #34495e;
   text-decoration: none;
+  display: block;
 }
 
 .header {

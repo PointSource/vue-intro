@@ -6,12 +6,6 @@
         <article-view :article="article"></article-view>
       </router-link>
     </transition-group>
-
-
-    <transition-group tag="ul" name="item">
-        <article-view v-for="article in articles" :key="article.id" :article="article"></article-view>
-    </transition-group>
-
   </div>
 </template>
 
@@ -33,7 +27,6 @@ export default {
 
   methods: {
     onRefreshClicked: function(event) {
-      console.log(event);
       this.articles = this.articleService.fetchTop10Articles();
     }
   },
@@ -49,8 +42,7 @@ export default {
 <style scoped lang="scss">
 
 .item-move, .item-enter-active, .item-leave-active {
-  // transition: all 2s cubic-bezier(.55,0,.1,1);
-  transition: transform 2s cubic-bezier(.55,0,.1,1);
+  transition: all 0.5s cubic-bezier(.55,0,.1,1);
 }
 
 .item-enter {
