@@ -1,4 +1,4 @@
-# intro
+# vue-intro
 
 > A Vue.js project
 
