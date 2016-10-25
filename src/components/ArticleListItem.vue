@@ -1,6 +1,6 @@
 <template>
 	<li @click="handleClick">
-		<a :href="article.url" target="_blank">{{ article.title }}</a>
+		{{ article.title }}
 	</li>
 </template>
 
@@ -10,14 +10,18 @@
     props: [ 'article' ],
     methods: {
       handleClick (event) {
-        console.log(event.x, event.y);
+        const coords = { x: event.x, y: event.y };
+        this.$parent.$emit('list-item-clicked', coords);
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
+  $itemColor: rgb(92, 162, 216);
+
   li {
     padding: 10px;
+    color: $itemColor;
   }
 </style>
