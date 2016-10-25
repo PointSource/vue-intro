@@ -5,23 +5,26 @@
 </template>
 
 <script>
+
   export default {
     name: 'article-list-item',
     props: [ 'article' ],
+    data () {
+      return {
+        msg: 'Welcome to Your Vue.js App'
+      };
+    },
+
     methods: {
       handleClick (event) {
-        const coords = { x: event.x, y: event.y };
-        this.$parent.$emit('list-item-clicked', coords);
+        console.log(event.x, event.y);
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  $itemColor: rgb(92, 162, 216);
-
   li {
     padding: 10px;
-    color: $itemColor;
   }
 </style>

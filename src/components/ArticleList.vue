@@ -1,11 +1,14 @@
 <template>
-  <div class="warpper">
-    <article-list-item :article="article"></article-list-item>
+  <transition-group tag="ul" name="item">
 
-    <div v-if="coords" class="coords">
-      <b>click coordinates</b>: {{ coords.x }}, {{ coords.y }}
-    </div>
-  </div>
+    <router-link v-for="article in articles"
+      :key="article.id"
+      :to="{ name: 'detail', params: { articleId: article.id } }">
+
+      <article-list-item :article="article"></article-list-item>
+    </router-link>
+
+  </transition-group>
 </template>
 
 <script>
@@ -16,30 +19,12 @@
     components: {
       ArticleListItem
     },
-    data () {
-      return {
-        coords: null,
-        article: {
-          id: 1,
-          title: 'GameInformer | Civilization VI Review',
-          url: 'http://www.gameinformer.com/games/sid_meiers_civilization_vi/b/pc/archive/2016/05/25/making-all-the-right-moves.aspx'
-        }
-      };
-    },
-    created () {
-      this.$on('list-item-clicked', (data) => {
-        this.coords = data
-      });
-    }
+    props: ['articles']
   };
 </script>
 
 <style lang="scss" scoped>
   ul {
     list-style-type: none;
-  }
-
-  .coords {
-    padding: 20px;
   }
 </style>

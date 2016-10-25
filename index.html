@@ -7,6 +7,13 @@
 
   <body>
     <div id="app">
+      <div class="header">
+        <router-link to='/'>Fake News</router-link>
+      </div>
+
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </div>
 
     <!-- built files will be auto injected -->
