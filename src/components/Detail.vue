@@ -1,34 +1,45 @@
 <template>
-  <div>
-    <iframe :src="article.url"></iframe>
+  <div class="wrapper">
+    <iframe v-if="article" :src="article.url"></iframe>
   </div>
 </template>
 
 <script>
-  import ArticleService from '../services/article-service/ArticleService';
+  import articleService from '../services/article';
 
   export default {
     name: 'detail',
-    props: [ 'articleId' ],
 
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        article: null
       };
     },
 
-    beforeMount: function() {
-      this.articleService = new ArticleService();
-      this.article = this.articleService.fetchArticleById(this.articleId);
-      console.log(this.article);
-    }
+    watch: {
+      $route: 'loadArticle'
+    },
 
+    methods: {
+      loadArticle () {
+        const id = this.$route.params.articleId;
+        this.article = articleService.fetchById(id);
+      }
+    },
+
+    created () {
+      this.loadArticle();
+    }
   };
 </script>
 
 <style scoped lang="scss">
+  .wrapper {
+    text-align: center;
+  }
+
   iframe {
-    width: 100%;
-    height: 100%;
+    width: 800px;
+    height: 2000px;
   }
 </style>

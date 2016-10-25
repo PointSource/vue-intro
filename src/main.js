@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 import Detail from 'components/Detail.vue';
 
 var router = new VueRouter({
+  mode: 'history',
   routes: [
     { name: 'home', path: '/', component: App },
     { name: 'detail', path: '/detail/:articleId', component: Detail },
@@ -17,9 +18,4 @@ var router = new VueRouter({
 });
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  template: '<App/>',
-  components: { App },
-  router
-});
+new Vue({ router }).$mount('#app');

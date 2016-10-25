@@ -1,16 +1,13 @@
 <template>
-  <div>
-    <button @click="onRefreshClicked">Refresh</button>
-    <transition-group tag="ul" name="item">
-      <router-link v-for="article in articles" :key="article.id" :to="{ name: 'detail', params: { articleId: article.id }}"></router-link>
-      <article-view :article="article"></article-view>
-    </transition-group>
+  <div class="article-list">
+    <button @click="refresh">Refresh</button>
+    <article-list :articles="articles"></article-list>
   </div>
 </template>
 
 <script>
   import ArticleList from './components/ArticleList.vue';
-  import ArticleService from './services/article-service/ArticleService';
+  import articleService from './services/article';
 
   export default {
     components: {
@@ -18,24 +15,38 @@
     },
     data () {
       return {
-        articles: 'Welcome to Your Vue.js App'
+        articles: []
       };
     },
 
     methods: {
-      onRefreshClicked: () => {
-        this.articles = this.articleService.fetchTop10Articles();
+      refresh () {
+        this.articles = [];
+        fetchArticles.call(this);
       }
     },
-    beforeMount: () => {
-      this.articleService = new ArticleService();
-      this.articles = this.articleService.fetchTop10Articles();
-    }
+
+    created: fetchArticles
   };
+
+  function fetchArticles() {
+    articleService.fetch().then((articles) => {
+      this.articles = articles;
+    });
+  }
 
 </script>
 
 <style lang="scss">
+  button {
+    float: right;
+  }
+
+  .article-list {
+    margin: 0 auto;
+    width: 800px;
+  }
+
   .item-move, .item-enter-active, .item-leave-active {
     transition: all 0.5s cubic-bezier(.55,0,.1,1);
   }
@@ -50,6 +61,7 @@
     opacity: 0;
     transform: translate(30px, 0);
   }
+
   body {
     font-family: Roboto, Helvetica, sans-serif;
     font-size: 15px;
